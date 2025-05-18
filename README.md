@@ -1,58 +1,63 @@
 # Self Learning with CARLA
 
-Bu proje, CARLA simülatörü kullanarak pekiştirmeli öğrenme (reinforcement learning) ile otonom araç sürüş becerilerinin geliştirilmesini amaçlamaktadır.
+Bu proje, CARLA simülatörü ile derin pekiştirmeli öğrenme (Deep Reinforcement Learning, DQN) kullanarak otonom araç sürüşü gerçekleştirmek için geliştirilmiştir.
 
 ![CARLA Simulator](https://carla.readthedocs.io/en/latest/_static/img/carla.jpg)
 
-## Proje Hakkında
+## Proje Özeti
 
-Bu çalışma, otonom araçların gerçek dünya koşullarında karşılaşabileceği çeşitli senaryolarda karar verme yeteneklerini geliştirmek için makine öğrenmesi tekniklerini kullanmaktadır. CARLA simülatörü üzerinde gerçekleştirilen deneyler, araçların kendi kendine öğrenme kabiliyetini artırmayı hedeflemektedir.
+Amaç, otonom araçların farklı trafik ve yol koşullarında, kamera görüntülerinden (gri tonlamalı, yeniden boyutlandırılmış) faydalanarak karar verme ve sürüş yeteneklerini geliştirmesidir. Ajan, görüntüleri işler ve uygun sürüş aksiyonunu seçer.
 
-# CARLA ile Otonom Sürüş için DQN Tabanlı RL Ajanı
+## Ana Özellikler
 
-Bu proje, CARLA simülasyon ortamında Derin Q-Öğrenme (DQN) kullanarak otonom araç kontrolü sağlayan bir yapay zeka ajanı içerir. Ajan, kamera girdilerini işleyerek araç kontrol kararları alır ve Pygame ile gerçek zamanlı görselleştirme sunar.
+- **DQN Mimarisi**: CNN tabanlı derin Q-öğrenme ajanı (`DQN/model.py`)
+- **Replay Buffer**: Deneyimleri saklamak için yeniden oynatma hafızası (`DQN/replay_buffer.py`)
+- **Görüntü İşleme**: Girdi kameradan alınan görüntüler işlenir (`DQN/process_image.py`, ayrıca `environment.py`)
+- **CARLA Entegrasyonu**: Simülasyon ortamı ve sensör yönetimi (`environment.py`)
+- **Pygame ile Görselleştirme**: Eğitilen ajanın görsel olarak test edilmesi (`agent_visualization_pygame.py`)
+- **Model Eğitimi**: Ana eğitim döngüsü (`main.py`)
 
 ---
 
-## 🛠 Teknolojiler ve Bağımlılıklar
-- **Python 3.8+**
-- **CARLA Simülasyon Sunucusu** ([İndirme Linki](https://carla.org/))
-- **PyTorch** (Derin Öğrenme Modeli)
-- **OpenCV** (Görüntü İşleme)
-- **Pygame** (Görselleştirme)
-- **NumPy, Queue, Collections**
+## Kurulum
 
-### Kurulum
-1. **CARLA'yı İndirin** ve `localhost:2000` portunda çalıştırın.
-2. Gereken Python kütüphanelerini yükleyin:
+1. **CARLA Simülatörünü Kurun**
+   - [CARLA İndir](https://carla.org/) ve simülatörü `localhost:2000` portunda başlatın.
+   - CARLA Python API’sinin sisteminizde kurulu olması gerekir.
+2. **Python Bağımlılıklarını Kurun**
    ```bash
    pip install torch torchvision opencv-python pygame numpy carla
 
-## Sonuçlar
+---
 
-Bu bölümde, farklı eğitim senaryoları ve modelleriyle elde edilen performans sonuçlarını paylaşabilirsiniz. Grafikler, tablolar veya örnek videolar ekleyebilirsiniz.
+## Kod Yapısı
+.
+├── DQN/
+│   ├── model.py
+│   ├── replay_buffer.py
+│   └── process_image.py
+├── environment.py
+├── main.py
+├── agent_visualization_pygame.py
+└── README.md
 
-## Kaynaklar
+---
+## Model eğitimi ve test
 
-- [CARLA Simulator](https://carla.org/)
-- [Deep Reinforcement Learning for Autonomous Driving](https://arxiv.org/abs/1810.06581)
-- [RL in Autonomous Driving: A Survey](https://arxiv.org/abs/2002.00444)
+   ```bash
+   python main.py
+   ```
 
-## Lisans
+   ```bash
+   python main.py
+   ```
 
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.
 
-## İletişim
+## Notlar
+main.py ve agent_visualization_pygame.py dosyalarının başında yer alan model ve ortam parametrelerini ihtiyacınıza göre düzenleyiniz.
+Çalıştırmadan önce CARLA simülatörünü başlatmayı unutmayın!
+Eğitim sırasında veya testte simülasyonun yavaşlaması sistem kaynaklarınızla ilgilidir.
 
-Aykut N - [GitHub](https://github.com/AykutN)
 
-Proje Linki: [https://github.com/AykutN/Self_Learning-with-Carla](https://github.com/AykutN/Self_Learning-with-Carla)
-```
 
-## Katkıda Bulunma
-
-1. Bu repoyu fork edin
-2. Feature branch'inizi oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
-4. Branch'inize push edin (`git push origin feature/amazing-feature`)
-5. Pull Request açın
+   
